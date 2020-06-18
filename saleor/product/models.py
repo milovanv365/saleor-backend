@@ -255,6 +255,7 @@ class Product(SeoModel, ModelWithMetadata, PublishableModel):
         ProductType, related_name="products", on_delete=models.CASCADE
     )
     name = models.CharField(max_length=250)
+    product_code = models.CharField(max_length=250)
     slug = models.SlugField(max_length=255, unique=True)
     description = models.TextField(blank=True)
     description_json = SanitizedJSONField(
