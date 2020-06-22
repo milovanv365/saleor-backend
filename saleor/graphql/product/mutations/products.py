@@ -515,7 +515,6 @@ class ProductInput(graphene.InputObjectType):
         description="Determines if product is visible to customers."
     )
     name = graphene.String(description="Product name.")
-    product_code = graphene.String(description="Product code.")
     slug = graphene.String(description="Product slug.")
     base_price = Decimal(description="Product price.")
     tax_code = graphene.String(description="Tax rate for enabled tax gateway.")
