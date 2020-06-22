@@ -526,6 +526,11 @@ class ProductInput(graphene.InputObjectType):
             "a product doesn't use variants."
         )
     )
+    reference_code = graphene.String(
+        description=(
+            "Reference code of a product."
+        )
+    )
     track_inventory = graphene.Boolean(
         description=(
             "Determines if the inventory of this product should be tracked. If false, "
@@ -952,8 +957,10 @@ class ProductCreate(ModelMutation):
                 "track_inventory", site_settings.track_inventory_by_default
             )
             sku = cleaned_input.get("sku")
+            reference_code = cleaned_input.get("reference_code")
             variant = models.ProductVariant.objects.create(
-                product=instance, track_inventory=track_inventory, sku=sku
+                product=instance, track_inventory=track_inventory, sku=sku,
+                reference_code=reference_code
             )
             stocks = cleaned_input.get("stocks")
             if stocks:
@@ -1028,6 +1035,9 @@ class ProductUpdate(ProductCreate):
             if "sku" in cleaned_input:
                 variant.sku = cleaned_input["sku"]
                 update_fields.append("sku")
+            if "reference_code" in cleaned_input:
+                variant.reference_code = cleaned_input["reference_code"]
+                update_fields.append("reference_code")
             if update_fields:
                 variant.save(update_fields=update_fields)
         # Recalculate the "minimal variant price"
