@@ -1109,6 +1109,7 @@ class ProductVariantInput(graphene.InputObjectType):
     cost_price = Decimal(description="Cost price of the variant.")
     price_override = Decimal(description="Special price of the particular variant.")
     sku = graphene.String(description="Stock keeping unit.")
+    reference_code = graphene.String(description="Product Reference code.")
     track_inventory = graphene.Boolean(
         description=(
             "Determines if the inventory of this variant should be tracked. If false, "
